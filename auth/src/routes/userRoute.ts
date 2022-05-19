@@ -16,7 +16,7 @@ router.get("/", (req: Request,res: Response, next: NextFunction)=>{
     res.send("Hello from Auth User routes!");
 })
 
-router.get("/currentUser", currentUser, requireAuth,(req: Request,res: Response, next: NextFunction)=>{
+router.get("/currentUser", currentUser,(req: Request,res: Response, next: NextFunction)=>{
     
   res.send({currentUser : req.currentUser})
  
@@ -52,7 +52,7 @@ router.post("/signup", validateInputs, async (req: Request,res: Response, next: 
         }
         
 
-        res.send(user);
+        res.status(201).send(user);
 
     }
     
@@ -71,7 +71,7 @@ router.post("/signout", (req: Request,res: Response, next: NextFunction)=>{
     // }
     req.session =undefined;
 
-    res.send({});
+    res.status(200).send({});
 })
 
 router.post("/signin", validateInputs, async (req: Request,res: Response, next: NextFunction)=>{

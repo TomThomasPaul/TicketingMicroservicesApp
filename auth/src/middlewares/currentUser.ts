@@ -29,7 +29,7 @@ export const currentUser = (req: Request, res: Response, next: NextFunction)=>{
       
 
        }catch(err){
-
+         console.log("current user error")
          
        }
 
