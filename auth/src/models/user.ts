@@ -11,13 +11,25 @@ const userSchema = new mongoose.Schema({ //create a schema for User Model
     password: {
 
         type: String,
-        required: true
+        required: true,
+        //select : false //dont show password when fetching results
+    },
+  
+},   {
+    toJSON : {
+        transform(doc, returnedDoc){
+
+            returnedDoc.id = returnedDoc._id;
+            delete returnedDoc._id;
+            delete returnedDoc.__v;
+            delete returnedDoc.password;
+        }
     }
 })
 
 userSchema.pre('save', async function(done){
 
-    if(this.isModified('password')){
+    if(this.isModified('password')){  //turns true when a ne wpassword is created or if password is changed on the schema
 
         const hashedPassword = await Password.hashPassword(this.get("password")); // this.get ('password') will get the password from the user document.
         console.log(hashedPassword);

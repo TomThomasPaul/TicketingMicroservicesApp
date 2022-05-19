@@ -11,8 +11,11 @@ export class Password {
     }
 
 
-    static comparePassword(storedPassword: string, suppliedPassword: string){
-
+    static async comparePassword(storedPassword: string, suppliedPassword: string){
+     console.log(storedPassword,suppliedPassword)    
+    // const hashedInputPwd = await this.hashPassword(suppliedPassword); 
+    // console.log(storedPassword,hashedInputPwd) ;  
+     return await bcryptUtils.compare(suppliedPassword,storedPassword);
 
     }
 }
